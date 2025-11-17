@@ -1,0 +1,79 @@
+Aim: write a program on binary search 
+
+Algorithm: Binary_Search
+1. Start
+2. Input the sorted array A and its size n
+3. Input the element to search → eswar
+4. Set
+low = 0
+high = n - 1
+5. Repeat while low ≤ high:
+1. Find
+mid = (low + high) / 2
+2. If A[mid] == eswar, then
+Print "Eswar found at position mid"
+Stop
+3. Else if A[mid] < eswar, then
+Set low = mid + 1
+4. Else
+Set high = mid - 1
+6. If low > high, print "Eswar not found"
+7. End
+
+code:
+
+#include <stdio.h>
+
+int main()
+{
+    int a[5], n, start, end, mid, key, i;
+
+    printf("Enter the size of array: ");
+    scanf("%d", &n);
+
+    printf("Enter the sorted elements:\n");
+    for(i = 0; i < n; i++)
+    {
+        scanf("%d", &a[i]);
+    }
+
+    printf("Enter the element to search: ");
+    scanf("%d", &key);
+
+    start = 0;
+    end = n - 1;
+
+    while(start <= end)
+    {
+        mid = (start + end) / 2;
+
+        if(a[mid] == key)
+        {
+            printf("Element found at position %d\n", mid);
+            return 0;
+        }
+        else if(a[mid] < key)
+        {
+            start = mid + 1;
+        }
+        else
+        {
+            end = mid - 1;
+        }
+    }
+
+    printf("Element not found\n");
+    return 0;
+}
+
+
+out put :
+Enter the size of array: 5
+Enter the sorted elements:
+1
+2
+3
+4
+5
+Enter the element to search: 3
+Element found at position 2
