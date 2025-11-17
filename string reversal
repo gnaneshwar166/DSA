@@ -1,0 +1,189 @@
+AIM: To write a program on string riversal
+
+
+CODE:
+#include <stdio.h>
+#include <stdlib.h> 
+int TOP = -1;
+int MAX;
+char *STACK; 
+
+void display();
+void push(char item);
+char pop();
+void string_reversal();
+
+// --- Display Function ---
+void display() {
+    printf("\nThere are %d elements in Stack:\n", TOP + 1);
+    for (int i = TOP; i >= 0; i--) {
+        if (i == TOP) {
+            printf("|%c| <-TOP\n", STACK[i]);
+        } else {
+            printf("|%c|\n", STACK[i]);
+        }
+    }
+}
+
+// --- Push Function ---
+void push(char item) {
+    if (TOP == MAX - 1) {
+        printf("Stack is Overflow!!!\n");
+    } else {
+        TOP = TOP + 1;
+        STACK[TOP] = item;
+    }
+}
+
+// --- Pop Function ---
+char pop() {
+    char item;
+    if (TOP == -1) {
+        printf("Stack is Underflow (Empty Stack)!!!\n");
+        return '\0'; 
+    } else {
+        item = STACK[TOP];
+        TOP = TOP - 1;
+        return item;
+    }
+}
+
+// --- String Reversal Application ---
+void string_reversal() {
+    char string[MAX];
+    printf("\nPlease enter the string of size %d to reverse: ", MAX);
+    scanf("%s", string);
+
+    // Push characters onto the stack
+    for (int c = 0; string[c] != '\0' && c < MAX; c++) {
+        push(string[c]);
+    }
+
+    printf("\nReversed String: ");
+    // Pop characters from the stack (LIFO)
+    for (int c = 0; c < MAX; c++) {
+        char popped_char = pop();
+        if (popped_char != '\0') {
+            printf("%c", popped_char);
+        } else {
+            break;
+        }
+    }
+    printf("\n");
+}
+
+// --- Main Function ---
+int main() {
+    int operation = 0;
+    
+    // Initial setup
+    printf("Enter the size of CHAR STACK: ");
+    scanf("%d", &MAX);
+    
+    // Allocate memory for the stack based on user input (MAX)
+    STACK = (char *)malloc(MAX * sizeof(char));
+    if (STACK == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+
+    // Start of the main loop
+    while (operation != 2) { 
+        
+        printf("\nIn what STACK operations you want to perform?\n");
+        printf("1. Stack Operations Menu\n");
+        printf("2. String Reversal\n");
+        printf("3. Exit\n"); // Added Exit for clean termination
+
+        printf("Please choose operation (1, 2, or 3): ");
+        scanf("%d", &operation);
+
+        if (operation == 1) {
+            int cOperation = 0;
+            // Loop for stack operations (Push, Pop, Display)
+            while (cOperation != 4) {
+                printf("\nPlease choose stack operation to perform:\n");
+                printf("1. PUSH\n");
+                printf("2. POP\n");
+                printf("3. DISPLAY\n");
+                printf("4. Exit Stack Operations Menu\n");
+                
+                printf("Please choose stack operation (1-4): ");
+                scanf("%d", &cOperation);
+
+                switch (cOperation) {
+                    case 1: {
+                        char item;
+                        printf("Enter the char to PUSH: ");
+                        // Note: The original code used '%d' which is incorrect for char.
+                        // Corrected to use '%c' or better, ' %c' to skip whitespace.
+                        scanf(" %c", &item); 
+                        push(item);
+                        break;
+                    }
+                    case 2: {
+                        char c = pop();
+                        if (c != '\0') { // Check against the underflow return value
+                            printf("Element %c is POPPED out from TOP\n", c);
+                        }
+                        break;
+                    }
+                    case 3: {
+                        display();
+                        break;
+                    }
+                    case 4: {
+                        printf("Exiting Stack Operations Menu...\n");
+                        break;
+                    }
+                    default: {
+                        printf("Invalid choice. Please try again.\n");
+                        break;
+                    }
+                }
+            }
+        } else if (operation == 2) {
+            string_reversal();
+        } else if (operation == 3) {
+            printf("Exiting Program...\n");
+        } else {
+            printf("Invalid main operation choice. Please try again.\n");
+        }
+    }
+
+    // Clean up memory
+    free(STACK);
+    return 0;
+}
+
+OUTPUT:
+
+Enter the size of CHAR STACK: 5
+
+In what STACK operations you want to perform?
+1. Stack Operations Menu
+2. String Reversal
+3. Exit
+Please choose operation (1, 2, or 3): 1
+
+Please choose stack operation to perform:
+1. PUSH
+2. POP
+3. DISPLAY
+4. Exit Stack Operations Menu
+Please choose stack operation (1-4): 1
+Enter the char to PUSH: 45
+
+Please choose stack operation to perform:
+1. PUSH
+2. POP
+3. DISPLAY
+4. Exit Stack Operations Menu
+Please choose stack operation (1-4): Invalid choice. Please try again.
+
+Please choose stack operation to perform:
+1. PUSH
+2. POP
+3. DISPLAY
+4. Exit Stack Operations Menu
+Please choose stack operation (1-4): 
