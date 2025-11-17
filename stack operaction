@@ -1,36 +1,4 @@
-Aim :To make stack operaction 
-
-Alogorithm:
-
-1. Initialization
-Read Size: Get the maximum size of the stack, MAX.
-Initialize Array: Create an array, STACK, of size MAX.
-Initialize Top: Set the pointer TOP = -1. (This indicates the stack is empty).
-2. PUSH Operation (Inserting an Element)
-This procedure adds an element to the top of the stack.
-Check for Overflow:
-IF TOP = MAX - 1:
-The stack is full. Print "Stack Overflow" and EXIT.
-Insert Element:
-Read the element to be inserted, VALUE.
-Increment TOP: Set TOP = TOP + 1.
-Store Value: Set STACK[TOP] = VALUE.
-End.
-3. POP Operation (Deleting an Element)
-This procedure removes the element from the top of the stack.
-Check for Underflow:
-IF TOP = -1:
-The stack is empty. Print "Stack Underflow" and EXIT.
-Retrieve Element:
-Set VALUE = STACK[TOP]. (This retrieves the element at the top).
-Decrement TOP:
-Set TOP = TOP - 1. (This logically removes the element).
-Display: Print the VALUE that was popped.
-End.
-4. EXIT Operation
-Print: Display "Exiting Program."
-Terminate: End the program execution.
-
+Aim :To make stack operaction
 
 code:#include <stdio.h>
 
