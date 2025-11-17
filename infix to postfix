@@ -1,0 +1,140 @@
+AIM:To convert in to infix to postfix
+
+ CODE:
+ #include <stdio.h>
+#include <ctype.h> 
+#include <string.h>
+#define MAX 100
+
+char stack[MAX];
+int top = -1;
+
+// --- Stack Operations ---
+
+// PUSH function
+void PUSH(char item) {
+    if (top >= MAX - 1) { // Check for stack overflow
+        printf("Stack overflow\n");
+        return;
+    }
+    stack[++top] = item;
+}
+
+// POP function
+char POP() {
+    if (top < 0) {
+        printf("Stack underflow\n");
+        return '\0'; // Return null character on underflow
+    }
+    return stack[top--];
+}
+
+// TOP function (Peek)
+char TOP() {
+    if (top < 0) {
+        return '\0';
+    }
+    return stack[top];
+}
+
+// --- Helper Functions ---
+
+// Precedence function
+int precedence(char operator) {
+    switch (operator) {
+        case '+':
+        case '-':
+            return 1;
+        case '*':
+        case '/':
+            return 2;
+        case '^': // Exponential operator (often included)
+            return 3;
+        default:
+            return 0; // For '(' or other characters
+    }
+}
+
+// isOperator function
+int isOperator(char ch) {
+    // Returns 1 if ch is an operator (+, -, *, /, ^)
+    return (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^');
+}
+
+// --- Infix to Postfix Conversion ---
+
+// Function to convert infix to postfix
+void infixToPostfix(char infix[MAX], char postfix[MAX]) {
+    int i = 0, j = 0; // i for infix, j for postfix
+    char token;
+
+    while ((token = infix[i++]) != '\0') {
+        if (isalnum(token)) {
+            // Operand (number or letter)
+            postfix[j++] = token;
+        } else if (token == '(') {
+            // Opening parenthesis
+            PUSH(token);
+        } else if (token == ')') {
+            // Closing parenthesis: Pop operators until '(' is found
+            while (TOP() != '(' && top != -1) {
+                postfix[j++] = POP();
+            }
+            if (TOP() == '(') {
+                POP(); // Discard '('
+            } else {
+               
+            }
+        } else if (isOperator(token)) {
+            // Operator: Pop operators with higher or equal precedence
+            while (top != -1 && TOP() != '(' && precedence(TOP()) >= precedence(token)) {
+                postfix[j++] = POP();
+            }
+            PUSH(token);
+        }
+    }
+
+    // Pop remaining operators from the stack
+    while (top != -1) {
+        if (TOP() == '(') {
+            
+            POP();
+            continue;
+        }
+        postfix[j++] = POP();
+    }
+    
+    // Null-terminate the postfix expression
+    postfix[j] = '\0';
+}
+
+// --- Main Function ---
+
+int main() {
+    char infix[MAX], postfix[MAX];
+   
+
+    printf("Enter the infix expression: ");
+    // Use %s to read a string, up to MAX-1 characters
+    if (scanf("%s", infix) != 1) {
+        printf("Error reading input.\n");
+        return 1;
+    }
+
+    // Convert expression
+    infixToPostfix(infix, postfix);
+
+    // Print the results
+    printf("Infix Expression: %s\n", infix);
+    printf("Postfix Expression: %s\n", postfix);
+
+    return 0;
+}
+
+OUTPUT:
+Enter the infix expression: a+b*d-e
+Infix Expression: a+b*d-e
+Postfix Expression: abd*+e-
+
+
+=== Code Execution Successful ===
