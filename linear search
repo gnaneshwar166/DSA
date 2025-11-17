@@ -1,1 +1,57 @@
+Aim: write a program for linear search 
 
+Algorithm: Linear_Search
+1. Start
+2. Input the array A and its size n
+3. Input the element to search, called key
+4. Set i = 0
+5. Repeat while i < n
+a. If A[i] == key, then
+Print "Element found at position i"
+Stop
+b. Otherwise,
+Increase i = i + 1
+6. If the loop completes and the element is not found,
+Print "Element not found"
+7.End
+
+
+7. End
+
+
+code :
+
+
+#include <stdio.h>
+
+int main()
+{
+    int a[10], i, n, k, flag = 0;
+
+    printf("Enter the size: ");
+    scanf("%d", &n);
+
+    printf("Enter numbers:\n");
+    for(i = 0; i < n; i++)
+    {
+        scanf("%d", &a[i]);
+    }
+
+    printf("Enter the element to search: ");
+    scanf("%d", &k);
+
+    for(i = 0; i < n; i++)
+    {
+        if(a[i] == k)
+        {
+            printf("Element found\n");
+            flag = 1;
+            break;
+        }
+    }
+
+    if(flag == 0)
+        printf("Not found\n");
+
+    return 0;
+}
