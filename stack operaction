@@ -1,0 +1,109 @@
+Aim :To make stack operaction 
+
+Alogorithm:
+
+1. Initialization
+Read Size: Get the maximum size of the stack, MAX.
+Initialize Array: Create an array, STACK, of size MAX.
+Initialize Top: Set the pointer TOP = -1. (This indicates the stack is empty).
+2. PUSH Operation (Inserting an Element)
+This procedure adds an element to the top of the stack.
+Check for Overflow:
+IF TOP = MAX - 1:
+The stack is full. Print "Stack Overflow" and EXIT.
+Insert Element:
+Read the element to be inserted, VALUE.
+Increment TOP: Set TOP = TOP + 1.
+Store Value: Set STACK[TOP] = VALUE.
+End.
+3. POP Operation (Deleting an Element)
+This procedure removes the element from the top of the stack.
+Check for Underflow:
+IF TOP = -1:
+The stack is empty. Print "Stack Underflow" and EXIT.
+Retrieve Element:
+Set VALUE = STACK[TOP]. (This retrieves the element at the top).
+Decrement TOP:
+Set TOP = TOP - 1. (This logically removes the element).
+Display: Print the VALUE that was popped.
+End.
+4. EXIT Operation
+Print: Display "Exiting Program."
+Terminate: End the program execution.
+
+
+code:#include <stdio.h>
+
+int main() {
+    int max;
+    int top = -1;
+
+    printf("Enter the size of the stack: ");
+    scanf("%d", &max);
+
+    int stack[max]; // Assuming C99 VLA support or similar
+    int choice;
+    int value;
+
+    while (1) {
+        printf("\nStack Operations Menu:\n");
+        printf("1. Push\n");
+        printf("2. Pop\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                // Push operation
+                if (top == max - 1) { // Stack Overflow condition
+                    printf("Stack overflow! Cannot push elements.\n");
+                } else {
+                    printf("Enter a value to PUSH: ");
+                    scanf("%d", &value);
+                    top = top + 1;
+                    stack[top] = value;
+                    printf("Value %d pushed to stack at position %d.\n", value, top);
+                }
+                break;
+
+            case 2:
+                // Pop operation
+                if (top == -1) { // Stack Underflow condition
+                    printf("Stack underflow! Stack is empty.\n");
+                } else {
+                    value = stack[top];
+                    top = top - 1;
+                    printf("POPPED value: %d\n", value);
+                }
+                break;
+
+            case 3:
+                // Exit operation
+                printf("Exiting Program.\n");
+                return 0; // Exits the main function and program
+
+            default:
+                printf("Invalid choice.\n");
+        }
+    }
+    return 0; 
+}
+
+
+out put :
+Enter the size of the stack: 5
+
+Stack Operations Menu:
+1. Push
+2. Pop
+3. Exit
+Enter your choice: 1
+Enter a value to PUSH: 23
+Value 23 pushed to stack at position 0.
+
+Stack Operations Menu:
+1. Push
+2. Pop
+3. Exit
+Enter your choice: 
