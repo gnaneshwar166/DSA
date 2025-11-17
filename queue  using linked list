@@ -1,0 +1,139 @@
+AIM: To do operactions on queue using linked list
+
+CODE:
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* front = NULL;
+struct Node* rear = NULL;
+
+// Enqueue operation
+void enqueue(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+
+    if (front == NULL) {
+        front = rear = newNode;
+        rear->next = front;   // Circular linking
+    } else {
+        rear->next = newNode;
+        rear = newNode;
+        rear->next = front;   // Maintain circular nature
+    }
+    printf("%d enqueued\n", value);
+}
+
+// Dequeue operation
+void dequeue() {
+    if (front == NULL) {
+        printf("Queue is EMPTY!\n");
+        return;
+    }
+
+    struct Node* temp = front;
+
+    if (front == rear) {  // Only one node
+        printf("%d dequeued\n", front->data);
+        front = rear = NULL;
+    } else {
+        printf("%d dequeued\n", front->data);
+        front = front->next;
+        rear->next = front; // Maintain circular link
+    }
+
+    free(temp);
+}
+
+// Display queue
+void display() {
+    if (front == NULL) {
+        printf("Queue is EMPTY!\n");
+        return;
+    }
+
+    struct Node* temp = front;
+
+    printf("Circular Queue: ");
+    do {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    } while (temp != front);
+
+    printf("\n");
+}
+
+int main() {
+    int choice, value;
+
+    while (1) {
+        printf("\n--- Circular Queue Using Linked List ---\n");
+        printf("1. Enqueue\n");
+        printf("2. Dequeue\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+        case 1:
+            printf("Enter value: ");
+            scanf("%d", &value);
+            enqueue(value);
+            break;
+
+        case 2:
+            dequeue();
+            break;
+
+        case 3:
+            display();
+            break;
+
+        case 4:
+            exit(0);
+
+        default:
+            printf("Invalid choice!\n");
+        }
+    }
+}
+
+OUTPUT:
+
+--- Circular Queue Using Linked List ---
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+Enter your choice: 1
+Enter value: 25
+25 enqueued
+
+--- Circular Queue Using Linked List ---
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+Enter your choice: 1
+Enter value: 28
+28 enqueued
+
+--- Circular Queue Using Linked List ---
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+Enter your choice: 3
+Circular Queue: 25 28 
+
+--- Circular Queue Using Linked List ---
+1. Enqueue
+2. Dequeue
+3. Display
+4. Exit
+Enter your choice: 
